@@ -12,11 +12,11 @@ interface inputProps {
 const InputBlock = ({ label, name, type }: inputProps) => {
   return (
     <div className="flex justify-start items-center self-stretch flex-grow-0 flex-shrink-0 overflow-hidden gap-2.5 px-[22px]">
-      <div className="flex flex-shrink-0 justify-center items-center w-24 h-full">
+      <label htmlFor={name} className="flex flex-shrink-0 justify-center items-center w-24 h-full">
         {label}
-      </div>
+      </label>
       <div className="flex justify-start items-start flex-grow h-[50px] relative overflow-hidden gap-2.5 px-2.5 py-[5px]">
-        <input name={name} type={type} className="self-stretch flex-grow w-full h-10 relative overflow-hidden rounded-[14px] border-2 border-[#2e9bff] px-2" />
+        <input id={name} name={name} type={type} className="self-stretch flex-grow w-full h-10 relative overflow-hidden rounded-[14px] border-2 border-[#2e9bff] px-2" />
       </div>
     </div>
   )
