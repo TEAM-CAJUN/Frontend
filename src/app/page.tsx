@@ -1,113 +1,99 @@
-import Image from 'next/image'
+'use client'
 
-export default function Home() {
+import ListItem, { ItemProps } from "@/components/list/ListItem";
+import { FormEventHandler, useRef, useState } from "react";
+import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
+
+interface selectItems {
+  name: string,
+  value: string,
+}
+
+const Home = () => {
+  const rows = 1;
+  const MAX_PAGE = useRef<number>(3);
+  const [page, setPage] = useState<number>(1);
+
+  const itemList: ItemProps[] = [
+    {
+      name: '기차옆집',
+      address: '서울특별시 동대문구 휘경동 88-1',
+      isLoan: 1,
+      isDeal: 0,
+      isPaper: 2,
+      isBpaper: 0,
+      isInsurance: 1,
+    },
+    {
+      name: '학교근처 개꿀',
+      address: '서울특별시 동대문구 휘경동 729-3',
+      isLoan: 0,
+      isDeal: 2,
+      isPaper: 1,
+      isBpaper: 2,
+      isInsurance: 1,
+    },
+  ];
+
+  const showList = itemList.slice(page * rows - rows, page * rows);
+
+  const handleSubmit: FormEventHandler = (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target as HTMLFormElement);
+    console.log(data.get("gu"), data.get("addr"));
+  }
+
+  const guList: selectItems[] = [{ name: "동대문구", value: "동대문구" }, { name: "강남구", value: "강남구" }, { name: "서초구", value: "서초구" }];
+  const dongList: selectItems[] = [{ name: "가리봉동", value: "가리봉동" }, { name: "휘경동", value: "휘경동" }, { name: "회기동", value: "회기동" }];
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <main className='w-screen h-full flex flex-shrink-0 justify-center'>
+      <div className="flex flex-col justify-start items-start flex-grow w-full max-w-5xl overflow-hidden px-10">
+        <div className="flex justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 py-2.5">
+          <p className="flex-grow-0 flex-shrink-0 text-2xl text-left text-black">안심 매물 조회</p>
         </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+        <form onSubmit={handleSubmit} className="flex justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden px-10 py-2.5 rounded-3xl border-[3px] border-[#2e81ff]">
+          <div className="flex flex-col justify-start items-start flex-grow overflow-hidden gap-2.5">
+            <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 relative overflow-hidden gap-2.5 px-[22px]">
+              <label className="self-stretch flex-grow-0 flex-shrink-0 h-5 relative overflow-hidden">
+                주소 검색
+              </label>
+              <div className="flex justify-start items-start self-stretch flex-grow-0 flex-shrink-0 h-[50px] relative overflow-hidden gap-2.5 px-2.5 py-[5px]">
+                <select name="gu" className="self-stretch flex-grow relative overflow-hidden rounded-[14px] border-2 border-[#2e9bff]" defaultValue={"동대문구"}>
+                  {guList.map((el, i) => <option key={i} value={el.value}>{el.name}</option>)}
+                </select>
+                <select name="dong" className="self-stretch flex-grow relative overflow-hidden rounded-[14px] border-2 border-[#2e9bff]" defaultValue={"법정동"}>
+                  {dongList.map((el, i) => <option key={i} value={el.value}>{el.name}</option>)}
+                </select>
+                <input name="addr" className="self-stretch flex-grow w-[226.67px] h-10 relative overflow-hidden rounded-[14px] border-2 border-[#2e9bff] px-2" />
+              </div>
+            </div>
+          </div>
+          <div className="self-stretch flex-grow-0 flex-shrink-0 w-[100px] relative overflow-hidden flex justify-center items-center">
+            <button
+              className="flex justify-center items-center h-[39px] overflow-hidden px-[11px] py-[7px] rounded bg-indigo-600 hover:bg-indigo-500 text-white"
+              style={{
+                boxShadow:
+                  "0px 1px 2px 0 rgba(0,0,0,0.05), 0px 0px 0px 2px #fff, 0px 0px 0px 4px #6366f1",
+              }}
+            >
+              검색
+            </button>
+          </div>
+        </form>
+        <div className="flex flex-col justify-start items-center self-stretch flex-grow overflow-hidden gap-2.5 py-2.5">
+          {showList.map((el, i) => <ListItem key={i} {...el} />)}
+          <div className="flex justify-center items-center gap-2.5 px-4 py-2">
+            <AiFillCaretLeft onClick={() => { if (page > 1) setPage(page - 1) }} className={`${page == 1 ? "text-gray-400" : "text-black cursor-pointer"}`} />
+            {[page - 2, page - 1, page, page + 1, page + 2].filter(el => el > 0 && el <= MAX_PAGE.current).map((el, i) => (
+              <div key={i} onClick={() => { setPage(el) }} className={`${page == el ? "font-bold" : "font-baseline"}`}>{el}</div>
+            ))}
+            <AiFillCaretRight onClick={() => { if (page < MAX_PAGE.current) setPage(page + 1) }} className={`${page == MAX_PAGE.current ? "text-gray-400" : "text-black cursor-pointer"}`} />
+          </div>
+        </div>
       </div>
     </main>
   )
 }
+
+export default Home;
