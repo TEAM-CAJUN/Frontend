@@ -24,30 +24,30 @@ const InputBlock = ({ label, name, type }: inputProps) => {
 
 const Signup = () => {
 
-  const infoList : inputProps[] = [{
-    label:"아이디(이메일)",
-    name:"bdsemail",
+  const infoList: inputProps[] = [{
+    label: "아이디(이메일)",
+    name: "bdsemail",
   }, {
-    label:"비밀번호",
-    name:"bdspassword",
-    type:"password"
-  },{
-    label:"비밀번호 확인",
-    name:"bdscheck",
-    type:"password"
-  },{
-    label:"이름",
-    name:"bdsname",
-  },{
-    label:"생년월일",
-    name:"bdsbirth",
-    type:"date",
-  },{
-    label:"연락처",
-    name:"bdsphone",
+    label: "비밀번호",
+    name: "bdspassword",
+    type: "password"
+  }, {
+    label: "비밀번호 확인",
+    name: "bdscheck",
+    type: "password"
+  }, {
+    label: "이름",
+    name: "bdsname",
+  }, {
+    label: "생년월일",
+    name: "bdsbirth",
+    type: "date",
+  }, {
+    label: "연락처",
+    name: "bdsphone",
   },];
 
-  const handleSubmit : FormEventHandler = (e) => {
+  const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault();
     const data = new FormData(e.target as HTMLFormElement);
     console.log("Sign Up");
@@ -60,8 +60,8 @@ const Signup = () => {
           회원가입
         </div>
         <div className="flex flex-col justify-start items-start self-stretch flex-grow-0 flex-shrink-0 overflow-hidden px-10 py-5 border-t-0 border-r-0 border-b border-l-0 border-[#2e9bff]">
-          {infoList.map((el,i)=>(
-            <InputBlock key={i} {...el}/>
+          {infoList.map((el, i) => (
+            <InputBlock key={i} {...el} />
           ))}
         </div>
         <div className="w-full h-fit py-2 flex flex-shrink-0 justify-center items-center">

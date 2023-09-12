@@ -3,6 +3,7 @@
 import ListItem, { ItemProps } from "@/components/list/ListItem";
 import { FormEventHandler, useRef, useState } from "react";
 import { AiFillCaretLeft, AiFillCaretRight } from "react-icons/ai";
+import { guList, dongList, dongProps } from "@/data/addr"
 
 interface selectItems {
   name: string,
@@ -13,6 +14,7 @@ const Home = () => {
   const rows = 1;
   const MAX_PAGE = useRef<number>(3);
   const [page, setPage] = useState<number>(1);
+  const [currDongList, setCurrDongList] = useState<dongProps[]>([]);
 
   const itemList: ItemProps[] = [
     {
@@ -43,9 +45,6 @@ const Home = () => {
     console.log(data.get("gu"), data.get("addr"));
   }
 
-  const guList: selectItems[] = [{ name: "동대문구", value: "동대문구" }, { name: "강남구", value: "강남구" }, { name: "서초구", value: "서초구" }];
-  const dongList: selectItems[] = [{ name: "가리봉동", value: "가리봉동" }, { name: "휘경동", value: "휘경동" }, { name: "회기동", value: "회기동" }];
-
   return (
     <main className='w-screen h-full flex flex-shrink-0 justify-center'>
       <div className="flex flex-col justify-start items-start flex-grow w-full max-w-5xl overflow-hidden px-10">
@@ -59,11 +58,17 @@ const Home = () => {
                 주소 검색
               </label>
               <div className="flex justify-start items-start self-stretch flex-grow-0 flex-shrink-0 h-[50px] relative overflow-hidden gap-2.5 px-2.5 py-[5px]">
-                <select name="gu" className="self-stretch flex-grow relative overflow-hidden rounded-[14px] border-2 border-[#2e9bff]" defaultValue={"동대문구"}>
-                  {guList.map((el, i) => <option key={i} value={el.value}>{el.name}</option>)}
+                <select
+                  name="gu"
+                  onChange={e => {
+                    setCurrDongList(dongList.filter(el => el.gu == Number.parseInt(e.target.value)));
+                  }}
+                  className="self-stretch flex-grow relative overflow-hidden rounded-[14px] border-2 border-[#2e9bff]" defaultValue={"동대문구"}
+                >
+                  {guList.map((el, i) => <option key={i} value={el.code}>{el.name}</option>)}
                 </select>
                 <select name="dong" className="self-stretch flex-grow relative overflow-hidden rounded-[14px] border-2 border-[#2e9bff]" defaultValue={"법정동"}>
-                  {dongList.map((el, i) => <option key={i} value={el.value}>{el.name}</option>)}
+                  {currDongList.map((el, i) => <option key={i} value={el.code}>{el.name}</option>)}
                 </select>
                 <input name="addr" className="self-stretch flex-grow w-[226.67px] h-10 relative overflow-hidden rounded-[14px] border-2 border-[#2e9bff] px-2" />
               </div>
